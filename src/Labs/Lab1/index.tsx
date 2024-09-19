@@ -82,7 +82,7 @@ export default function Lab1() {
                     <tbody>
                         <tr>
                             <td>Q1</td>
-                            <td>HTML</td>
+                            <td>CSS</td>
                             <td>9/16/24</td>
                             <td>85</td>
                         </tr>
@@ -100,43 +100,43 @@ export default function Lab1() {
                         </tr>
                         <tr>
                             <td>Q4</td>
-                            <td>CSS</td>
+                            <td>React.js</td>
                             <td>10/7/24</td>
                             <td>85</td>
                         </tr>
                         <tr>
                             <td>Q5</td>
-                            <td>JavaScript</td>
+                            <td>Redux</td>
                             <td>10/14/24</td>
                             <td>80</td>
                         </tr>
                         <tr>
                             <td>Q6</td>
-                            <td>React</td>
+                            <td>Node.js</td>
                             <td>10/28/24</td>
                             <td>82</td>
                         </tr>
                         <tr>
                             <td>Q7</td>
-                            <td>Redux</td>
+                            <td>Node.js</td>
                             <td>11/4/24</td>
                             <td>84</td>
                         </tr>
                         <tr>
                             <td>Q8</td>
-                            <td>Redux</td>
+                            <td>MongoDB</td>
                             <td>11/11/24</td>
                             <td>90</td>
                         </tr>
                         <tr>
                             <td>Q9</td>
-                            <td>Node</td>
+                            <td>MongoDB</td>
                             <td>11/18/24</td>
                             <td>96</td>
                         </tr>
                         <tr>
                             <td>Q10</td>
-                            <td>Node</td>
+                            <td>APIs</td>
                             <td>12/2/24</td>
                             <td>98</td>
                         </tr>
