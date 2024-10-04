@@ -122,7 +122,7 @@ export default function BootstrapForms() {
                     <fieldset className="row mb-3">
                         <legend className="col-form-label col-sm-2 pt-0">
                             Radios</legend>
-                        <div className="col-sm-10">
+                        <div className="col-sm-10 offset-sm-2">
                             <div className="form-check">
                                 <input className="form-check-input" type="radio"
                                     name="gridRadios" id="r3" value="option1" checked />
