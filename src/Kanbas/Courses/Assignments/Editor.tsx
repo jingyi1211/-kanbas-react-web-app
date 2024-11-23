@@ -2,9 +2,12 @@ import { useState, useEffect } from "react";
 import { FaRegCalendarAlt } from "react-icons/fa";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { addAssignment, updateAssignment } from "./reducer";
+import { addAssignment } from "./reducer";
+import { createAssignmentForCourse } from "../client";
+import { updateAssignment } from "./client";
 
-export default function AssignmentEditor() {
+export default function AssignmentEditor({ assignmentName, setAssignmentName, addAssignment }:
+    { assignmentName: string; setAssignmentName: (title: string) => void; addAssignment: () => void; }) {
     const { cid, aid } = useParams();
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -43,13 +46,35 @@ export default function AssignmentEditor() {
         }));
     };
 
-    const handleSave = () => {
-        if (aid === "new") {
-            dispatch(addAssignment({ ...formState, course: cid }));
-        } else {
-            dispatch(updateAssignment({ ...formState, _id: aid, course: cid }));
+    const handleSave = async () => {
+        const assignmentData = {
+            title: formState.title,
+            description: formState.description,
+            points: formState.points,
+            dueDate: formState.dueDate,
+            availableFrom: formState.availableFrom,
+            until: formState.until,
+            _id: aid  // Ensure the _id is included for update operations
+        };
+
+        try {
+            if (aid === "new") {
+                // Creating a new assignment
+                if (cid) {
+                    await createAssignmentForCourse(cid, assignmentData);
+                    navigate(`/Kanbas/Courses/${cid}/assignments`);
+                } else {
+                    console.error("Course ID is undefined");
+                }
+            } else {
+                // Updating an existing assignment
+                await updateAssignment(assignmentData);  // Assuming your Redux action can handle this directly
+                navigate(`/Kanbas/Courses/${cid}/assignments`);
+            }
+        } catch (error) {
+            console.error("Error saving the assignment:", error);
+            // Optionally, handle the error in UI
         }
-        navigate(`/Kanbas/Courses/${cid}/assignments`);
     };
 
     return (

@@ -3,7 +3,9 @@ import { HiMagnifyingGlass } from "react-icons/hi2";
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router";
 import { useSelector, useDispatch } from "react-redux";
-export default function AssignmentsControls() {
+import AssignmentEditor from "./Editor";
+export default function AssignmentsControls({ assignmentName, setAssignmentName, addAssignment }:
+    { assignmentName: string; setAssignmentName: (title: string) => void; addAssignment: () => void; }) {
     const { cid } = useParams();
     const navigate = useNavigate();
     const { currentUser } = useSelector((state: any) => state.accountReducer);

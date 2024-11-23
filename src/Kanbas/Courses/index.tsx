@@ -7,7 +7,6 @@ import PeopleTable from "./People/Table";
 import Assignments from "./Assignments";
 import AssignmentEditor from "./Assignments/Editor";
 
-
 export default function Courses({ courses }: { courses: any[] }) {
     const { cid } = useParams();
     const course = courses.find((course) => course._id === cid);
@@ -32,7 +31,11 @@ export default function Courses({ courses }: { courses: any[] }) {
                         <Route path="Assignments" element={<Assignments />} />
                         <Route
                             path="Assignments/:aid"
-                            element={<AssignmentEditor />}
+                            element={<AssignmentEditor assignmentName={""} setAssignmentName={function (title: string): void {
+                                throw new Error("Function not implemented.");
+                            }} addAssignment={function (): void {
+                                throw new Error("Function not implemented.");
+                            }} />}
                         />
                         <Route path="People" element={<PeopleTable />} />
                         <Route path="People" element={<h2>People</h2>} />
