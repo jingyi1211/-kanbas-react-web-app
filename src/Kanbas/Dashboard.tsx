@@ -13,6 +13,9 @@ export default function Dashboard({
     addNewCourse,
     deleteCourse,
     updateCourse,
+    enrolling,
+    setEnrolling,
+    updateEnrollment
 }: {
     courses: any[];
     course: any;
@@ -20,6 +23,9 @@ export default function Dashboard({
     addNewCourse: () => void;
     deleteCourse: (course: any) => void;
     updateCourse: () => void;
+    enrolling: boolean;
+    setEnrolling: (enrolling: boolean) => void;
+    updateEnrollment: (courseId: string, enrolled: boolean) => void
 }) {
     const dispatch = useDispatch();
     const [showAllCourses, setShowAllCourses] = useState(false);
@@ -51,10 +57,11 @@ export default function Dashboard({
 
     return (
         <div id="wd-dashboard">
-            <h1 id="wd-dashboard-title">Dashboard</h1> <hr />
-            <button className="btn btn-primary float-end" onClick={toggleEnrollmentsView}>
-                {showAllCourses ? "Show Enrolled Only" : "Show All Courses"}
-            </button>
+            <h1 id="wd-dashboard-title">Dashboard
+                <button onClick={() => setEnrolling(!enrolling)} className="float-end btn btn-primary" >
+                    {enrolling ? "My Courses" : "All Courses"}
+                </button>
+            </h1> <hr />
             <h5>
                 New Course
                 <button
@@ -91,8 +98,8 @@ export default function Dashboard({
             <hr />
             <div id="wd-dashboard-courses" className="row">
                 <div className="row row-cols-1 row-cols-md-5 g-4">
-                    {courses.filter(course => showAllCourses || isEnrolled(course._id)).map((course) => (
-                        <div className="wd-dashboard-course col" style={{ width: "300px" }}>
+                    {courses.map((course) => (
+                        <div key={course._id} className="wd-dashboard-course col" style={{ width: "300px" }}>
                             <div className="card">
                                 <Link
                                     to={`/Kanbas/Courses/${course._id}/Home`}
@@ -101,6 +108,15 @@ export default function Dashboard({
                                     <img src="/images/reactjs.jpg" width="100%" />
                                     <div className="card-body">
                                         <h5 className="wd-dashboard-course-title card-title">
+                                            {enrolling && (
+                                                <button onClick={(event) => {
+                                                    event.preventDefault();
+                                                    updateEnrollment(course._id, !course.enrolled);
+                                                }}
+                                                    className={`btn ${course.enrolled ? "btn-danger" : "btn-success"} float-end`} >
+                                                    {course.enrolled ? "Unenroll" : "Enroll"}
+                                                </button>
+                                            )}
                                             {course.name}
                                         </h5>
                                         <p
@@ -109,12 +125,6 @@ export default function Dashboard({
                                         >
                                             {course.description}
                                         </p>
-
-                                        {isEnrolled(course._id) ? (
-                                            <button className="btn btn-danger" onClick={(e) => handleUnenroll(e, course._id)}>Unenroll</button>
-                                        ) : (
-                                            <button className="btn btn-success" onClick={(e) => handleEnroll(e, course._id)}>Enroll</button>
-                                        )}
 
                                         <button className="btn btn-primary"> Go </button>
                                         <button
